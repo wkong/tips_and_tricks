@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<title>arrows</title>
+	<style type="text/css" media="screen">
+		.chat-bubble {
+		  background-color:#EDEDED;
+		  border:2px solid #666666;
+		  font-size:35px;
+		  line-height:1.3em;
+		  margin:10px auto;
+		  padding:10px;
+		  position:relative;
+		  text-align:center;
+		  width:300px;
+		  -moz-border-radius:10px;
+		  -webkit-border-radius:10px;
+		  -moz-box-shadow:0 0 5px #888888;
+		  -webkit-box-shadow:0 0 5px #888888;
+		}
+		.chat-bubble-arrow-border {
+		  border-color: #666666 transparent transparent transparent;
+		  border-style: solid;
+		  border-width: 15px;
+		  height:0;
+		  width:0;
+		  position:absolute;
+		  bottom:-30px;
+		  left:30px;
+		}
+		.chat-bubble-arrow {
+		  border-color: #EDEDED transparent transparent transparent;
+		  border-style: solid;
+		  border-width: 13px;
+		  height:0;
+		  width:0;
+		  position:absolute;
+		  bottom:-25px;
+		  left:32px;
+		}
+		
+		
+		/* arrow */
+
+		.arrow
+		{
+		        width: 0;
+		        height: 0;
+		        border-right: 100px solid transparent;
+		        border-left: 100px solid transparent; 
+		        border-bottom:100px solid #ddd;
+		}
+		
+	</style>
+</head>
+	<body>
+		<div class="chat-bubble">
+		  Buongiorno!
+		  <div class="chat-bubble-arrow-border"></div>
+		  <div class="chat-bubble-arrow"></div>
+		</div>
+		
+		<br />
+		<br />
+		
+		<div class="arrow"></div>
+		
+		
+	</body>
+</html>
