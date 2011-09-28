@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>test</title>
+</head>
+
+<body>
+	
+	<a href="#1">1</a> <br /><br />
+	<a href="#2">2</a> <br /><br />
+	<a href="#3">3</a> <br /><br />
+	<a href="#4">4</a>
+	
+	<script src="eventUtility.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script>
+		
+		function fireMe(val) {
+			
+			console.log(val);
+			
+		}
+		
+		function setHref(val) {
+			
+			return function() {
+				
+				fireMe(val);
+				
+				return false;
+				
+			}
+			
+		}
+		
+		onload = function() {
+			
+			var links = document.getElementsByTagName('a');
+			
+			var length = links.length;
+			
+			for (var i = 0; i < length; i++) {
+				
+				var link = links[i];
+				
+				var func = setHref(link.getAttribute('href'));
+				
+				eventUtility.addEvent(link, 'click', func);
+				
+			}
+			
+		};
+		
+	</script>
+
+</body>
+</html>
