@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 17: Example 01</title>
+    <style type="text/css">
+    td {
+        border: 1px solid gray;
+        width: 50px;
+    }
+    
+    #results {
+        height: 20px;
+    }
+    </style>
+</head>
+<body>
+    <table border="0" cellpadding="2" cellspacing="2">
+        <tr>
+            <td colspan="4" id="results"></td>
+        </tr>
+        <tr>
+            <td><a href="#">1</a></td>
+            <td><a href="#">2</a></td>
+            <td><a href="#">3</a></td>
+            <td><a href="#">+</a></td>
+        </tr>
+        <tr>
+            <td><a href="#">4</a></td>
+            <td><a href="#">5</a></td>
+            <td><a href="#">6</a></td>
+            <td><a href="#">-</a></td>
+        </tr>
+        <tr>
+            <td><a href="#">7</a></td>
+            <td><a href="#">8</a></td>
+            <td><a href="#">9</a></td>
+            <td><a href="#">*</a></td>
+        </tr>
+        <tr>
+            <td><a href="#">Clear</a></td>
+            <td><a href="#">0</a></td>
+            <td><a href="#">=</a></td>
+            <td><a href="#">/</a></td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+    function addDigit(digit) {
+        var resultField = document.getElementById("results");
+        resultField.innerHTML += digit;
+
+        return false;
+    }
+
+    function calculate() {
+        var resultField = document.getElementById("results");
+        
+        resultField.innerHTML = eval(resultField.innerHTML);
+
+        return false;
+    }
+
+    function reset() {
+        var resultField = document.getElementById("results");
+        
+        resultField.innerHTML = "";
+
+        return false;
+    }
+
+    function getHandlerFunction(innerHTML) {
+        return function() {
+            addDigit(innerHTML);
+
+            return false;
+        };
+    }
+
+    onload = function() {
+        var links = document.getElementsByTagName("a");
+        var length = links.length;
+
+        for (var i = 0; i < length; i++) {
+            var link = links[i];
+            var innerHTML = link.innerHTML;
+
+            switch(innerHTML) {
+                case "Clear":
+                    link.onclick = reset;
+                    break;
+                case "=":
+                    link.onclick = calculate;
+                    break;
+                default:
+                    link.onclick = getHandlerFunction(innerHTML);
+                    break;
+            }
+        }
+
+    };
+    </script>
+</body>
+</html>

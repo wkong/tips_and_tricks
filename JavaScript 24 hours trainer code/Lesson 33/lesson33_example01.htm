@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 33: Example 01</title>
+</head>
+<body>
+
+<form name="theForm" action="" onsubmit="validateName(event)">
+    <input type="text" name="txtName" value="" />
+    <input type="submit" name="btnSubmit" value="Check Name" />
+</form>
+
+
+<script type="text/javascript" src="eventutility.js"></script>
+<script type="text/javascript" src="xhr.js"></script>
+<script type="text/javascript">
+function validateName(event) {
+    var nameToVerify = document.theForm.txtName.value;
+    var button = document.theForm.btnSubmit;
+
+    if (nameToVerify === "") {
+        alert("Please enter a name");
+    } else {
+        button.disabled = true;
+        makeGetRequest("lesson33_example_data.txt", processData);
+    }
+
+    eventUtility.preventDefault(event);
+}
+
+function processData(data) {
+    var names = data.split(",");
+    var nameToVerify = document.theForm.txtName.value;
+    var button = document.theForm.btnSubmit;
+    var nameFound = false;
+
+    for (var i = 0; i <names.length; i++) {
+        var name = names[i];
+
+        if (name.toLowerCase() === nameToVerify.toLowerCase()) {
+            nameFound = true;
+            break;
+        }
+    }
+
+    if (nameFound) {
+        alert("That name is taken.");
+    } else {
+        alert("That name isn't taken.");
+    }
+
+    button.disabled = false;
+
+}
+</script>
+</body>
+</html>

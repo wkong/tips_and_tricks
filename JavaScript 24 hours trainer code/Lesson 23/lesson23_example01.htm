@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 23: Example 01</title>
+    <style type="text/css">
+    td {
+        border: 1px solid gray;
+        width: 50px;
+    }
+    
+    #results {
+        height: 20px;
+    }
+    </style>
+</head>
+<body>
+    <table border="0" cellpadding="2" cellspacing="2">
+        <tr>
+            <td colspan="4" id="results"></td>
+        </tr>
+        <tr>
+            <td><a href="#">1</a></td>
+            <td><a href="#">2</a></td>
+            <td><a href="#">3</a></td>
+            <td><a href="#">+</a></td>
+        </tr>
+        <tr>
+            <td><a href="#">4</a></td>
+            <td><a href="#">5</a></td>
+            <td><a href="#">6</a></td>
+            <td><a href="#">-</a></td>
+        </tr>
+        <tr>
+            <td><a href="#">7</a></td>
+            <td><a href="#">8</a></td>
+            <td><a href="#">9</a></td>
+            <td><a href="#">*</a></td>
+        </tr>
+        <tr>
+            <td><a href="#">Clear</a></td>
+            <td><a href="#">0</a></td>
+            <td><a href="#">=</a></td>
+            <td><a href="#">/</a></td>
+        </tr>
+    </table>
+    <script src="eventUtility.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var calculator = {
+        resultField : document.getElementById("results"),
+        reset : function() {
+            this.resultField.innerHTML = "";
+        },
+
+        calculate : function() {
+            this.resultField.innerHTML = eval(this.resultField.innerHTML);
+        },
+
+        addDigit : function(digit) {
+            this.resultField.innerHTML += digit;
+        }
+    };
+
+    eventUtility.addEvent(document, "click", function(event) {
+        var target = eventUtility.getTarget(event);
+
+        if (target.tagName.toUpperCase() === "A") {
+            var innerHTML = target.innerHTML;
+
+            switch(innerHTML) {
+                case "Clear":
+                    calculator.reset();
+                    break;
+                case "=":
+                    calculator.calculate();
+                    break;
+                default:
+                    calculator.addDigit(innerHTML);
+                    break;
+            }
+
+            eventUtility.preventDefault(event);
+        }
+    });
+    </script>
+</body>
+</html>

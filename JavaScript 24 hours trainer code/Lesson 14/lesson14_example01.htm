@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 14 Example 1</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var shoppingList = [
+            "Eggs",
+            "Milk",
+            "Juice",
+            "Diapers",
+            "Bread"
+        ];
+
+        var ul = document.createElement("ul");
+        
+        for (var i = 0; i < shoppingList.length; i++) {
+            ul.innerHTML = ul.innerHTML + "<li>" + shoppingList[i] + "</li>";
+        }
+
+        document.body.appendChild(ul);
+    </script>
+</body>
+</html>

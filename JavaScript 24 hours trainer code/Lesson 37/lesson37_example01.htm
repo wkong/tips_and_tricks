@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 28: Example 01</title>
+</head>
+<body>
+<form name="theForm" action="" onsubmit="validateForm(event)">
+    <p>
+        Name: <input type="text" name="txtName" />
+    </p>
+    <p>
+        Age: <input type="text" name="txtAge" />
+    </p>
+    <p>
+        Email: <input type="text" name="txtEmail" />
+    </p>
+    <p>
+        Password: <input type="password" name="txtPassword1" />
+    </p>
+    <p>
+        Retype Password: <input type="password" name="txtPassword2" />
+    </p>
+
+    <input name="btnSubmit" type="submit" value="Submit" />
+</form>
+<script type="text/javascript" src="eventutility.js"></script>
+<script type="text/javascript">
+function ValidationException(element, message) {
+    this.element = element;
+    this.message = message;
+}
+
+function validateForm(event) {
+    var theForm = document.theForm;
+    var txtName = theForm.txtName;
+    var txtAge = theForm.txtAge;
+    var txtEmail = theForm.txtEmail;
+    var txtPassword1 = theForm.txtPassword1;
+    var txtPassword2 = theForm.txtPassword2;
+    var button = theForm.btnSubmit;
+    var age = parseInt(txtAge.value);
+
+    button.disabled = true;
+
+    try {
+        if (isEmpty(txtName.value)) {
+            throw new ValidationException(txtName, "Please enter your name.");
+        }
+
+        if (isNaN(age) || !(age > 0)) {
+            throw new ValidationException(txtAge, "Please enter your age.");
+        }
+
+        if (!(txtEmail.value.indexOf("@") > 0)) {
+            throw new ValidationException(txtEmail, "Please enter a valid email address.");
+        }
+
+        if (isEmpty(txtPassword1.value)) {
+            throw new ValidationException(txtPassword1, "Password cannot be blank.");
+        }
+
+        if (txtPassword1.value !== txtPassword2.value) {
+            throw new ValidationException(txtPassword1, "Passwords do not match. Pelase reenter them.");
+        }
+
+    } catch(exception) {
+        var element = exception.element;
+
+        alert(exception.message);
+        element.focus();
+        element.select();
+
+        eventUtility.preventDefault(event);
+        button.disabled = false;
+    }
+
+}
+
+function isEmpty(value) {
+    return (value === "");
+}
+</script>
+</body>
+</html>

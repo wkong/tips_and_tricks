@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 22: Example 01</title>
+    <style type="text/css">
+    #divContainer {
+        background-color: silver;
+        height: 50px;
+        padding: 2px;
+    }
+
+    span {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+    }
+
+    .button-normal {
+        background-color: gray;	
+    }
+
+    .button-over {
+        background-color: navy;	
+    }
+
+    .button-click {
+        background-color: yellow;	
+    }
+    </style>
+</head>
+<body>
+    <div id="divContainer">
+        <span class="button-normal">
+            
+        </span>
+        <span class="button-normal">
+            
+        </span>
+        <span class="button-normal">
+            
+        </span>
+    </div>
+    <script type="text/javascript" src="eventutility.js"></script>
+    <script type="text/javascript">
+    function mouseHandler(event) {
+        var eSrc = event.srcElement;
+        var type = event.type;
+
+        if (eSrc.tagName.toUpperCase() === "SPAN") {
+            if (type === "mouseover") {
+                if (eSrc.className !== "button-click") {
+                    eSrc.className = "button-over";
+                }
+            } else if(type === "mouseout") {
+                if (eSrc.className !== "button-click") {
+                    eSrc.className = "button-normal";
+                }
+            } else if (type === "click") {
+                if (eSrc.className !== "button-click") {
+                    eSrc.className = "button-click";
+                } else {
+                    eSrc.className = "button-over";
+                }
+
+            }
+        }
+    }
+
+    eventUtility.addEvent(document, "mouseover", mouseHandler);
+    eventUtility.addEvent(document, "mouseout", mouseHandler);
+    eventUtility.addEvent(document, "click", mouseHandler);
+
+
+    </script>
+</body>
+</html>

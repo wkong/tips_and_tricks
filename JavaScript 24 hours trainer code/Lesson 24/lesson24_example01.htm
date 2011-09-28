@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 24: Example 01</title>
+    <style type="text/css">
+    .draggable {
+        position: absolute;
+        cursor: move;
+    }
+    
+    .box {
+        width: 100px;
+        height: 100px;
+    }
+
+    .navy {
+        background-color: navy;
+    }
+        
+    .green {
+        background-color: Green;
+    }
+    </style>
+</head>
+<body>
+<div class="navy box draggable"></div>
+<div class="green box draggable"></div>
+
+<script type="text/javascript" src="eventutility.js"></script>
+<script type="text/javascript">
+var dragObj = {
+    setDragObj : function(el, mouseX, mouseY) {
+        this.el = el;
+        this.relativeLeft = el.offsetLeft - mouseX;
+        this.relativeTop = el.offsetTop - mouseY;
+        this.el.style.zIndex = this.zIndex++;
+    },
+    dragTo : function(x, y) {
+        this.el.style.left = x + this.relativeLeft + "px";
+        this.el.style.top = y + this.relativeTop + "px";
+    },
+    dragging : false,
+    el : null,
+    relativeTop : 0,
+    relativeLeft: 0,
+    zIndex : 1
+};
+
+function mouseHandler(event) {
+    var eSrc = eventUtility.getTarget(event);
+    var type = event.type;
+    var x = event.clientX + document.body.scrollLeft;
+    var y = event.clientY + document.body.scrollTop;
+
+    switch (type) {
+        case "mousedown":
+            if (eSrc.className.indexOf("draggable") > -1) {
+                dragObj.dragging = true;
+                dragObj.setDragObj(eSrc, x, y);
+            }
+            break;
+        case "mouseup":
+            dragObj.dragging = false;
+            break;
+
+        case "mousemove":
+            if (dragObj.dragging) {
+                dragObj.dragTo(x, y);
+            }
+            break;
+    }
+}
+
+eventUtility.addEvent(document, "mousedown", mouseHandler);
+eventUtility.addEvent(document, "mouseup", mouseHandler);
+eventUtility.addEvent(document, "mousemove", mouseHandler);
+</script>
+</body>
+</html>

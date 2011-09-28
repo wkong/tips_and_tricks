@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 34: Example 01</title>
+</head>
+<body>
+<form name="theForm" method="post" action="ajax_post.php" onsubmit="addUser(event)">
+    <p>
+        Name: <input type="text" name="txtName" value="" />
+    </p>
+    <p>
+        Email: <input type="text" name="txtEmail" value="" />
+    </p>
+    <p>
+        <input type="submit" name="btnSubmit" value="Submit" />
+    </p>
+</form>
+<script type="text/javascript" src="eventutility.js"></script>
+<script type="text/javascript" src="ajaxUtility.js"></script>
+<script type="text/javascript">
+function addUser(event) {
+    var theForm = document.theForm;
+    var name = theForm.txtName.value;
+    var email = theForm.txtEmail.value;
+    var button = theForm.btnSubmit;
+
+    button.disabled = true;
+
+    if (name === "" || email === "") {
+        alert("Please complete the form");
+        button.disabled = false;
+    } else {
+        ajaxUtility.postFromForm(theForm.action, theForm, processData);
+    }
+
+    eventUtility.preventDefault(event);
+}
+
+function processData(data) {
+    var button = document.theForm.btnSubmit;
+
+    alert(data);
+
+    button.disabled = false;
+}
+</script>
+</body>
+</html>

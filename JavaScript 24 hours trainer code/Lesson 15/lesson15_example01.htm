@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 15: Example 1</title>
+    <style type="text/css">
+    .message-style1 {
+        color: navy;
+        font-weight: bold;
+        background-color: gray;	
+    }
+    </style>
+</head>
+<body>
+    <div id="divMessage">
+        Here is a message.
+    </div>
+    <input type="button" value="Toggle Style" onclick="toggleStyle()" />
+    <script type="text/javascript">
+    function toggleStyle() {
+        var divMessage = document.getElementById("divMessage");
+
+        if (divMessage.className === "message-style1") {
+            divMessage.className = "";
+        } else {
+            divMessage.className = "message-style1";
+        }
+    }
+    </script>
+</body>
+</html>

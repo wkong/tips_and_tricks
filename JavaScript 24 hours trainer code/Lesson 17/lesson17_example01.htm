@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 17: Example 01</title>
+    <style type="text/css">
+    td {
+        border: 1px solid gray;
+        width: 50px;
+    }
+    
+    #results {
+        height: 20px;
+    }
+    </style>
+</head>
+<body>
+    <table border="0" cellpadding="2" cellspacing="2">
+        <tr>
+            <td colspan="4" id="results"></td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="return addDigit(1)">1</a></td>
+            <td><a href="#" onclick="return addDigit(2)">2</a></td>
+            <td><a href="#" onclick="return addDigit(3)">3</a></td>
+            <td><a href="#" onclick="return addDigit('+')">+</a></td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="return addDigit(4)">4</a></td>
+            <td><a href="#" onclick="return addDigit(5)">5</a></td>
+            <td><a href="#" onclick="return addDigit(6)">6</a></td>
+            <td><a href="#" onclick="return addDigit('-')">-</a></td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="return addDigit(7)">7</a></td>
+            <td><a href="#" onclick="return addDigit(8)">8</a></td>
+            <td><a href="#" onclick="return addDigit(9)">9</a></td>
+            <td><a href="#" onclick="return addDigit('*')">x</a></td>
+        </tr>
+        <tr>
+            <td><a href="#" onclick="return reset()">Clear</a></td>
+            <td><a href="#" onclick="return addDigit(0)">0</a></td>
+            <td><a href="#" onclick="return calculate()">=</a></td>
+            <td><a href="#" onclick="return addDigit('/')">/</a></td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+    function addDigit(digit) {
+        var resultField = document.getElementById("results");
+        resultField.innerHTML += digit;
+
+        return false;
+    }
+
+    function calculate() {
+        var resultField = document.getElementById("results");
+        
+        resultField.innerHTML = eval(resultField.innerHTML);
+
+        return false;
+    }
+
+    function reset() {
+        var resultField = document.getElementById("results");
+        
+        resultField.innerHTML = "";
+
+        return false;
+    }
+    </script>
+</body>
+</html>

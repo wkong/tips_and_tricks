@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 25: Example 01</title>
+    <style type="text/css">
+    .box {
+        width: 100px;
+        height: 100px;
+        background-color: navy;
+    }
+    </style>
+</head>
+<body>
+<a href="#" onclick="animated.startGrowAnimation(); return false;">Grow Box</a>
+<a href="#" onclick="animated.startShrinkAnimation(); return false;">Shrink Box</a>
+<a href="#" onclick="animated.stopAnimation(); return false;">Stop Animation</a>
+
+<div id="divNavyBox" class="box"></div>
+
+<script type="text/javascript">
+var animated = {
+    timer : null,
+    el : document.getElementById("divNavyBox"),
+    startGrowAnimation : function() {
+        this.stopAnimation();
+        this.timer = setInterval(function() {
+            animated.doAnimation(5);
+        }, 10);
+    },
+    startShrinkAnimation : function() {
+        this.stopAnimation();
+        this.timer = setInterval(function() {
+            animated.doAnimation(-5);
+        }, 10);
+    },
+    stopAnimation : function() {
+        clearInterval(this.timer);
+    },
+    doAnimation : function(amount) {
+        var size = this.el.offsetWidth;
+
+        if ((amount > 0 && size < 200) || (amount < 0 && size > 0)) {
+            this.el.style.width = size + amount + "px";
+            this.el.style.height = size + amount + "px";
+        } else {
+            this.stopAnimation();
+        }
+    }
+};
+</script>
+</body>
+</html>

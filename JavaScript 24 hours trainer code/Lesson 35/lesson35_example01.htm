@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Lesson 35: Example 01</title>
+</head>
+<body>
+<div id="divResults">
+    <div id="divSearchMessage"></div>
+    <div id="divSearchResults"></div>
+</div>
+<form name="theForm" method="post" action="car_dealership.php" onsubmit="submitForm(event);">
+    <p>
+        Make: <input type="text" name="txtMake" value="" />
+    </p>
+    <p>
+        Model: <input type="text" name="txtModel" value="" />
+    </p>
+    <p>
+        Year: <input type="text" name="txtYear" value="" />
+    </p>
+    <p>
+        <input type="submit" name="btnSubmit" value="Submit" />
+    </p>
+</form>
+<script type="text/javascript" src="eventutility.js"></script>
+<script type="text/javascript" src="ajaxUtility.js"></script>
+<script type="text/javascript" src="json2.js"></script>
+<script type="text/javascript">
+function submitForm(event) {
+    var data = ajaxUtility.getRequestBody(document.theForm);
+
+    ajaxUtility.makeGetRequest("car_dealership.php?" + data, processResponse);
+
+    eventUtility.preventDefault(event);
+}
+
+function getCarString(carObj) {
+    return [carObj.year, carObj.make, carObj.model].join(" ");
+}
+
+//{
+//    "searchedCar" : {
+//        "make" : "value",
+//        "model" : "value",
+//        "year" : numericValue
+//    },
+//    "isFound" : booleanValue,
+//    "results" : [
+//        {
+//            "make" : "value",
+//            "model" : "value",
+//            "year" : numericValue
+//        },
+//        // more object structures if necessary
+//    ]
+//}
+
+function processResponse(data) {
+    var result = JSON.parse(data);
+    var messageDiv = document.getElementById("divSearchMessage");
+    var resultsDiv = document.getElementById("divSearchResults");
+    var message = "";
+    var results = [];
+    var length = result.results.length;
+    var carStr = getCarString(result.searchedCar);
+
+    if (result.isFound) {
+        message = "We found " + length + " matches for " + carStr;
+    } else {
+        message = "We could not find " + carStr + ". You might like: ";
+
+        for (var i = 0; i < length; i++) {
+            results.push(getCarString(result.results[i]));
+        }
+
+        resultsDiv.innerHTML = results.join("<br/>");
+    }
+
+    messageDiv.innerHTML = message;
+}
+
+</script>
+</body>
+</html>
