@@ -32,7 +32,7 @@
 			
 		}
 		
-		onload = function() {
+		window.addEventListener('load', function() {
 			
 			var links = document.getElementsByTagName('a');
 			
@@ -42,11 +42,11 @@
 				
 				var link = links[i];
 				
-				link.onclick = setHref(link.getAttribute('href'));
+				link.addEventListener('click', setHref(link.getAttribute('href')), false);
 				
 			}
 			
-		};
+		}, false);
 		
 	</script>
 
