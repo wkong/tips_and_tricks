@@ -1,53 +1,147 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <title>Lesson 25: Example 01</title>
     <style type="text/css">
     .box {
-        width: 100px;
-        height: 100px;
+        width: 0;
+        height: 0;
         background-color: navy;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		-o-border-radius: 5px;
+		-html-border-radius: 5px;
+		-ms-border-radius: 5px;
+		border-radius: 5px;
+		-webkit-box-shadow: 3px 3px 3px #666;
+		-moz-box-shadow: 3px 3px 3px #666;
+		box-shadow: 3px 3px 3px #666;
     }
     </style>
 </head>
 <body>
-<a href="#" onclick="animated.startGrowAnimation(); return false;">Grow Box</a>
-<a href="#" onclick="animated.startShrinkAnimation(); return false;">Shrink Box</a>
-<a href="#" onclick="animated.stopAnimation(); return false;">Stop Animation</a>
+
+<a href="#grow">Grow up!</a>
+<a href="#shrink">Shrink down!</a>
 
 <div id="divNavyBox" class="box"></div>
 
-<script type="text/javascript">
-var animated = {
-    timer : null,
-    el : document.getElementById("divNavyBox"),
-    startGrowAnimation : function() {
-        this.stopAnimation();
-        this.timer = setInterval(function() {
-            animated.doAnimation(5);
-        }, 10);
-    },
-    startShrinkAnimation : function() {
-        this.stopAnimation();
-        this.timer = setInterval(function() {
-            animated.doAnimation(-5);
-        }, 10);
-    },
-    stopAnimation : function() {
-        clearInterval(this.timer);
-    },
-    doAnimation : function(amount) {
-        var size = this.el.offsetWidth;
+<script src="eventUtility.js" type="text/javascript" charset="utf-8"></script>
 
-        if ((amount > 0 && size < 200) || (amount < 0 && size > 0)) {
-            this.el.style.width = size + amount + "px";
-            this.el.style.height = size + amount + "px";
-        } else {
-            this.stopAnimation();
-        }
-    }
-};
+<script type="text/javascript">
+	
+	var animated = {
+		
+		timer : null,
+		
+		elem : document.getElementById('divNavyBox'),
+		
+		grow : function() {
+			
+			this.stop();
+			
+			this.timer = setInterval(function() {
+				
+				animated.animate(3);
+				
+			}, 1);
+			
+		},
+		
+		shrink : function() {
+			
+			this.stop();
+			
+			this.timer = setInterval(function() {
+				
+				animated.animate(-3);
+				
+			}, 1);
+			
+		},
+		
+		stop : function() {
+			
+			clearInterval(this.timer);
+			
+		},
+		
+		animate : function(amount) {
+			
+			var size = this.elem.offsetWidth;
+			
+			if ((size < 200 && amount > 0) || (size > 0 && amount < 0)) {
+				
+				this.elem.style.width = size + amount + "px";
+				
+				this.elem.style.height = size + amount + "px";
+				
+			} else {
+				
+				this.stop();
+				
+			}
+			
+		}
+		
+	};
+	
+	function fireEvent(eventName) {
+		
+		return function() {
+
+			switch (eventName)
+			{
+				case 'grow':
+				
+					animated.grow();
+					
+					break;
+					
+				case 'shrink':
+				
+					animated.shrink();
+					
+					break;
+					
+			}
+			
+		}
+		
+	}
+	
+	onload = function() {
+		
+		var buttons = document.getElementsByTagName("a");
+		
+		var buttons_count = buttons.length;
+		
+		for (var i = 0; i < buttons_count; i++) {
+			
+			var link = buttons[i];
+			
+			var href = buttons[i].getAttribute("href");
+			
+			switch (href)
+			{
+				case '#grow':
+				
+					eventUtility.addEvent(link, 'click', fireEvent('grow'));
+					
+					break;
+					
+				case '#shrink':
+				
+					eventUtility.addEvent(link, 'click', fireEvent('shrink'));
+					
+					break;
+					
+			}
+			
+		}
+		
+	}
+	
 </script>
 </body>
 </html>
